@@ -143,7 +143,7 @@ ubuntu                             latest    58db3edaf2be   13 days ago      77.
 hello-world                        latest    feb5d9fea6a5   16 months ago    13.3kB
 
 
-Run your First Docker Container
+**Run your First Docker Container**
 docker run -it tonymore/my-first-docker-image
 
 **OUTPUT**
@@ -161,3 +161,33 @@ b8088c305a52: Pushed
 c5ff2d88f679: Mounted from library/ubuntu
 latest: digest: sha256:6e49841ad9e720a7baedcd41f9b666fcd7b583151d0763fe78101bb8221b1d88 size: 1157
 You must be feeling like a champ already
+
+
+**TO RUN THE Docker Containerzation for Django**
+**Clone this repository and move to example folder**
+git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero
+cd Docker-Zero-to-Hero
+cd examples
+cd python-web-apps
+
+**Build your first Docker Image**
+You need to change the username accoringly in the below command
+docker build -t tonymore/python-image:latest .
+OR
+sudo docker build .
+
+**VIEW THE IMAGES**
+sudo docker images
+
+copy out the IMAGE ID be072ac5b644
+
+**Run your First Docker Container**
+sudo docker run -it tonymore/python-image
+sudo docker run -p 8000:8000 -it tonymore/python-image
+OR
+sudo docker run -it be072ac5b644
+sudo docker run -p 8000:8000 -it be072ac5b644
+
+**TO VALIDATE LOCALLY** 
+Copy your IP ADDRESS TOGETHER WITH THE PORT NUMBER YOU HAVE OPEN ON SECURITY GROUP ON YOUR CONSOLE
+http://18.193.109.29:8000/demo/
