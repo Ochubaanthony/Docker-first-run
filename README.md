@@ -163,6 +163,8 @@ latest: digest: sha256:6e49841ad9e720a7baedcd41f9b666fcd7b583151d0763fe78101bb82
 You must be feeling like a champ already
 
 
+
+**STEPS TWO**
 **TO RUN THE Docker Containerzation for Django**
 **Clone this repository and move to example folder**
 git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero
@@ -170,7 +172,7 @@ cd Docker-Zero-to-Hero
 cd examples
 cd python-web-apps
 
-**Build your first Docker Image**
+**Build your Docker Image**
 You need to change the username accoringly in the below command
 docker build -t tonymore/python-image:latest .
 OR
@@ -181,7 +183,7 @@ sudo docker images
 
 copy out the IMAGE ID be072ac5b644
 
-**Run your First Docker Container**
+**Run your  Docker Container**
 sudo docker run -it tonymore/python-image
 sudo docker run -p 8000:8000 -it tonymore/python-image
 OR
@@ -191,3 +193,37 @@ sudo docker run -p 8000:8000 -it be072ac5b644
 **TO VALIDATE LOCALLY** 
 Copy your IP ADDRESS TOGETHER WITH THE PORT NUMBER YOU HAVE OPEN ON SECURITY GROUP ON YOUR CONSOLE
 http://18.193.109.29:8000/demo/
+
+
+
+
+**STEPS THREE **
+** **Multi Stage Docker Builds | Reduce Image Size by 800 % | Distroless Container Images****
+cd examples/
+cd golang-multi-stage-docker-build/
+
+INSTALL GOLAND ON YOUR CURRENT SERVER
+sudo apt update
+sudo apt install golang-go
+
+go run calculator.go
+DO SOME CALCULATION
+
+nano dockerfile-without-multistage/Dockerfile 
+cd golang-multi-stage-docker-build/
+cd dockerfile-without-multistage/
+
+**Build your Docker Image**
+sudo docker build -t tonymore/simplecalculator-image:latest .
+sudo docker images | head -5                    ( notice the size is higher)
+cd ..
+**RETURN TO** 
+/Docker-Zero-to-Hero/examples/golang-multi-stage-docker-build$
+ls
+nano Dockerfile
+
+**Build your Docker Image**
+sudo docker build -t tonymore/simplecalculator-image:latest .
+sudo docker images | head -5              (notices the sized has gone down)
+
+
