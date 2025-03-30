@@ -227,3 +227,88 @@ sudo docker build -t tonymore/simplecalculator-image:latest .
 sudo docker images | head -5              (notices the sized has gone down)
 
 
+
+**Fourth Class**
+**Docker Mount and volume**
+docker volume create tonymore
+cd first-docker-file
+docker build -t volumedemo
+docker run -d --mount source=tonymore, target=/app nginx:latest
+docker ps
+docker inspect (add name of the container/ID)
+MAKE SURE YOU DELETE THE CONTAINER BEFORE DELLETING THE VOLUME
+docker volume rm tonymore
+
+
+
+**Fifth Class**
+Docker Network
+How container can talk to the host
+two ways 
+container 1 >> talk to container 2
+container 2 >> talk to container 1
+the way conatiner can talk to your host is called **BRIDGE NETWORKING**(veth)
+
+**Host-Networking**
+the container directly used the network of the host
+
+**Overlaying Networking**
+**Docker zero** used to communicate with all the container in the host
+
+STEPS
+git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero
+cd Docker-Zero-to-Hero
+cd examples
+sudo apt update
+sudo apt install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+**ADD A CONTAINER** A
+sudo docker run -d --name login nginx:latest
+sudo docker exec -it login /bin/bash
+sudo apt update
+apt-get install iputils-ping -y
+ping -V
+sudo docker inspect login      ("IPAddress": "172.17.0.2",
+
+**ADD A CONTAINER** B
+Open new Terminal
+git clone https://github.com/iam-veeramalla/Docker-Zero-to-Hero
+cd Docker-Zero-to-Hero
+cd examples
+sudo docker run -d --name logout nginx:latest
+sudo docker ps
+
+sudo docker inspect logout     ("IPAddress": "172.17.0.3",
+BOTH ARE IN THE SAME SUBNET
+
+sudo docker exec -it login /bin/bash
+sudo apt update
+sudo apt-get install iputils-ping -y
+ping -V
+
+**TO KNOW ALL NETWORK ON THIS HOST**
+sudo docker network ls
+sudo docker network create secure-network
+sudo docker network ls
+sudo docker run -d --name finance --network=secure-network nginx:latest
+sudo docker ps
+sudo docker inspect finance
+
+
+**TO CONFIRM YOU CAN NOT REACHED FINANCE NETWORK**
+RUN THE FINANCE IP ADDRESS IN ANY OF LOGIN/LOGOUT 
+ping 172.18.0.2   (this is for finance) but ping from login, you notie no response
+
+
+**Create a Container with the Host Network**
+sudo docker run -d --name host-demo --network=host nginx:latest
+sudo docker ps
+sudo docker inspect host-demo
+YOU NOTICE NO **IP ADDRESS** WAS GRANTED BECAUSE USING THE HOST **IP ADDRESS**
+
+
+
+
+
